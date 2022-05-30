@@ -3,6 +3,10 @@ import string
 from tqdm import tqdm
 
 def read(filename, n_articles=None):
+    '''Creates generator for JSON file
+    @param filename: path to JSON file to read
+    @param n_articles: optional limit for number of articles to read
+    '''
     with open(filename, 'r', encoding='utf-8') as file:
         json_object = ''
         reading = False
@@ -18,13 +22,17 @@ def read(filename, n_articles=None):
                 json_object = ''
 
 def clean(body):
+    '''Removes all punctuation from text and puts it in lowercase
+
+    @param body: a string of text to clean
+    '''
     return ' '.join(
         body.translate(
             str.maketrans(
                 string.punctuation, ' '*len(string.punctuation)
             )
         ).split()
-    )
+    ).lower()
 
 if __name__ == '__main__':
     reader = read('habr.json')
